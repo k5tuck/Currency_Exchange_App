@@ -5,7 +5,7 @@ import createCard from "./card.js";
 ajax("https://api.exchangeratesapi.io/latest?base=USD&symbols=", (data) => {
   let parsed_data = JSON.parse(data);
   console.log(parsed_data);
-  console.log(parsed_data.rates.KRW);
+  console.log(parsed_data.rates.JPY);
   inputField(parsed_data);
 });
 
@@ -57,7 +57,7 @@ const inputField = (data) => {
       `https://api.exchangeratesapi.io/latest?base=${baseInput.value}&symbols=${startingInput.value},${targetInput.value}`,
       (data) => {
         let newData = JSON.parse(data);
-        createCard(startingInput, targetInput, newData);
+        createCard(startingInput, targetInput, baseInput, newData);
       }
     );
   });
@@ -75,28 +75,6 @@ export const selectOption = (input, item) => {
     input.append(currencyOptions);
   }
 };
-
-// Function to grab rates
-// const getRates = grabButton.addEventListener("submit",() => {
-//     let results = [...evt.target.elements]
-//     .filter(param=>param.name)
-//     .map(p=>({name:p.name, value:p.value}))
-//     // let base = Need id.value of base currency id:base
-//     // Let start = Need id.value of starting currency id:start
-//     // let target = Need id.value of targetInput id:target
-//     for (i=0;i < results.length;i++){
-
-//     }
-
-//     ajax(`https://api.exchangeratesapi.io/latest?base=${base}&symbols=${start}${target}`, (data) => {
-//     let parsed_data = JSON.parse(data).rates
-//     let rates = parsed_data.rates
-//     for (value in rates){
-//         if(value === startingInput){"append rates[value] to card display"}
-//         if(value === targetInput){"append rates[value] to card display"}
-//     };
-//     console.log(parsed_data);
-// })})
 
 // let optArray = ["Male", "Female"];
 // let select = document.createElement("select");

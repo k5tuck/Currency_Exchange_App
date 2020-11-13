@@ -1,38 +1,27 @@
 import { makeElements, getElements } from "./elements.js";
 
 // Make Card and Appending to Body
-export function createCard(start, trgt, input) {
+export function createCard(start, trgt, base, input) {
   let body2 = getElements("body");
   let card = makeElements("div", { class: "card" });
-  let begInputValue = start.value;
 
   let start$ = makeElements("div");
   let start$Label = makeElements("h3");
-  // let start$Value = makeElements("h5");
-  for (let currency in input.rates) {
-    if (currency === begInputValue) {
-      start$Label.innerText = currency;
-      break;
-    }
-  }
-  let start$Value = `${input.rates.begInputValue}`;
-  // Troubleshooting
-  console.log(begInputValue);
-  console.log(start$Value);
+  let start$Value = makeElements("h5");
+
+  start$Label.innerText = start.value;
+  start$Value = input.rates[start.value];
   start$.append(start$Label, start$Value);
 
   let target$ = makeElements("div");
   let target$Label = makeElements("h3");
   let target$Value = makeElements("h3");
-  // let b = input.base;
-  for (let currency in input.rates) {
-    if (currency === trgt.value) {
-      target$Label.innerText = currency;
-      target$Value = input.rates.currency;
-      break;
-    }
-  }
+  target$Label.innerText = trgt.value;
+  target$Value = input.rates[target.value];
   target$.append(target$Label, target$Value);
+
+  let base$ = makeElements("h3");
+  base$.innerText = `Base Currency: ${base.value}`;
 
   let remove = makeElements("button");
   remove.innerText = "x";
@@ -40,9 +29,9 @@ export function createCard(start, trgt, input) {
     evt.target.parentNode.parentNode.removeChild(evt.target.parentNode);
   });
 
-  card.append(remove, start$, target$);
-  console.log(start$Label, target$Label);
+  card.append(remove, start$, target$, base$);
   body2.append(card);
+
   // Flags for currencies
   // let flagContainer = makeElements("div", { class: "card-container" });
   // let startFlag = makeElements("div", { id: "start-flag" });
